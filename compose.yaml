@@ -1,0 +1,4 @@
+# Default Compose entrypoint. Keeps the user-requested docker.yaml canonical.
+# Requires Docker Compose v2.20+ (Docker Desktop).
+include:
+  - docker.yaml

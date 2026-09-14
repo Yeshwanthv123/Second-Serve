@@ -1,0 +1,31 @@
+name: Verify prototype
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    env:
+      AGENT_MODE: demo
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Compose
+        run: docker compose config --quiet
+      - name: Build and start application services (explicit scripted unit-test mode)
+        run: docker compose up --build -d --wait --wait-timeout 180 backend frontend
+      - name: Test API behavior in an isolated temporary database
+        run: docker compose exec -T backend python -m pytest -q tests
+      - name: Check static app and reverse-proxied API
+        run: |
+          curl --fail http://localhost:8080/ | grep 'Second Serve'
+          curl --fail http://localhost:8080/api/health
+          curl --fail http://localhost:8000/openapi.json > /dev/null
+      - name: Show service logs on failure
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Stop isolated CI services
+        if: always()
+        run: docker compose down -v

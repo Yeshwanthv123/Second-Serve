@@ -1,0 +1,67 @@
+services:
+  ollama:
+    image: ollama/ollama:0.11.10
+    environment:
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: "1"
+      OLLAMA_KEEP_ALIVE: "10m"
+    volumes:
+      - secondserve-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  model-init:
+    image: ollama/ollama:0.11.10
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:4b-instruct}
+      AGENT_MODE: ${AGENT_MODE:-ollama}
+    entrypoint: ["/bin/sh", "-c"]
+    command: ['if [ "$$AGENT_MODE" = "ollama" ]; then if ollama show "$$OLLAMA_MODEL" > /dev/null 2>&1; then echo "Local model already installed"; else ollama pull "$$OLLAMA_MODEL"; fi; else echo "Local model download skipped for $$AGENT_MODE"; fi']
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "on-failure:3"
+  backend:
+    build:
+      context: ./backend
+    environment:
+      DATABASE_PATH: /app/data/secondserve.db
+      AGENT_MODE: ${AGENT_MODE:-ollama}
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen3:4b-instruct}
+      AGENT_TIMEOUT_SECONDS: ${AGENT_TIMEOUT_SECONDS:-600}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      APP_ORIGINS: ${APP_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173}
+      GEOCODING_URL: ${GEOCODING_URL:-https://geocoding-api.open-meteo.com/v1/search}
+      MAP_TILE_URL: ${MAP_TILE_URL:-https://tile.openstreetmap.org/{z}/{x}/{y}.png}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-us.anthropic.claude-sonnet-4-20250514-v1:0}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
+      AWS_EC2_METADATA_DISABLED: "true"
+    volumes:
+      - secondserve-data:/app/data
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: unless-stopped
+    init: true
+    depends_on:
+      ollama:
+        condition: service_healthy
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  secondserve-data:
+  secondserve-models:

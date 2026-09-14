@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "model": "qwen3:4b-instruct",
+  "framework": "Strands Agents",
+  "provider": "Actual Ollama inference",
+  "fictional_test_records": true,
+  "assertions": [
+    "Actual Ollama model used through Strands",
+    "Model responses recorded",
+    "Natural-language preference changed the chosen recipient",
+    "Capacity capped at 20; remaining 10 assigned elsewhere",
+    "Stale earlier plan rejected",
+    "Approval and confirmed handoffs persisted"
+  ],
+  "runs": [
+    {
+      "scenario": "baseline",
+      "created_at": "2026-09-12T16:44:18.256189+00:00",
+      "mode": "ollama",
+      "model_id": "qwen3:4b-instruct",
+      "model_calls": 3,
+      "elapsed_ms": 33662,
+      "total_portions": 30,
+      "allocations": [
+        {
+          "recipient": "Nearby Community Kitchen",
+          "portions": 30,
+          "distance_km": 0.0
+        }
+      ],
+      "model_requested_tools": [
+        "Model requested: inspect_surplus, inspect_recipient_needs",
+        "Model requested: create_rescue_plan",
+        "Model returned its written response."
+      ],
+      "summary": "The rescue plan successfully matched 30 portions of Vegetable lunch boxes from Verification Restaurant to Nearby Community Kitchen. The recipient has sufficient capacity (40 remaining) and accepts vegetarian meals, with no allergens present. The dropoff is at the same location as the pickup, with a 8-minute ETA. No other needs were met due to capacity or distance constraints. The human action needed next is to approve this plan.\n"
+    },
+    {
+      "scenario": "preferred",
+      "created_at": "2026-09-12T16:44:52.561068+00:00",
+      "mode": "ollama",
+      "model_id": "qwen3:4b-instruct",
+      "model_calls": 3,
+      "elapsed_ms": 31303,
+      "total_portions": 30,
+      "allocations": [
+        {
+          "recipient": "Night Shelter",
+          "portions": 20,
+          "distance_km": 1.03
+        },
+        {
+          "recipient": "Nearby Community Kitchen",
+          "portions": 10,
+          "distance_km": 0.0
+        }
+      ],
+      "model_requested_tools": [
+        "Model requested: inspect_surplus, inspect_recipient_needs",
+        "Model requested: create_rescue_plan",
+        "Model returned its written response."
+      ],
+      "summary": "The rescue plan successfully matches 20 portions to the Night Shelter, prioritized as per coordinator preference, and 10 portions to the Nearby Community Kitchen due to capacity and compatibility. The Night Shelter's vegetarian-only requirement and exclusion of nuts align with the vegetarian nature of the vegetable lunch boxes. The Nearby Community Kitchen receives the remaining portions, as it is the nearest compatible recipient with available capacity. No needs were unmet due to dietary or distance constraints. The human action needed next is to approve the plan before any pickup is executed.\n"
+    }
+  ]
+}

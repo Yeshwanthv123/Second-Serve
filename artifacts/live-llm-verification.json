@@ -1,0 +1,287 @@
+{
+  "status": "passed",
+  "provider": {
+    "mode": "ollama",
+    "model_id": "qwen3:4b-instruct",
+    "llm": true,
+    "provider": "Local LLM \u00b7 Ollama",
+    "ready": true,
+    "status": "ready",
+    "detail": "Local model installed. Ready for inference."
+  },
+  "fictional_test_records": true,
+  "baseline": {
+    "id": "run-6ef244e040a3",
+    "status": "ready",
+    "mode": "ollama",
+    "created_at": "2026-09-12T16:44:18.256189+00:00",
+    "completed_at": "2026-09-12T16:44:51.921316+00:00",
+    "instructions": "No partner preference. Use the nearest suitable receiving partner.",
+    "radius_km": 5.0,
+    "summary": "The rescue plan successfully matched 30 portions of Vegetable lunch boxes from Verification Restaurant to Nearby Community Kitchen. The recipient has sufficient capacity (40 remaining) and accepts vegetarian meals, with no allergens present. The dropoff is at the same location as the pickup, with a 8-minute ETA. No other needs were met due to capacity or distance constraints. The human action needed next is to approve this plan.\n",
+    "plan": {
+      "area": {
+        "name": "Pune",
+        "label": "Pune, India",
+        "lat": 18.52,
+        "lng": 73.85,
+        "country": "India",
+        "country_code": "IN",
+        "source": "manual"
+      },
+      "allocations": [
+        {
+          "donation_id": "d-65950ef58b96",
+          "recipient_id": "r-edd3de8bf03f",
+          "donor": "Verification Restaurant",
+          "food": "Vegetable lunch boxes",
+          "recipient": "Nearby Community Kitchen",
+          "portions": 30,
+          "distance_km": 0.0,
+          "eta_minutes": 8,
+          "reason": "Earliest pickup deadline first; nearest compatible recipient with available capacity.",
+          "expires_at": "2026-09-12T18:44:18.241293+00:00",
+          "pickup": {
+            "lat": 18.52,
+            "lng": 73.85,
+            "address": "Fictional test pickup"
+          },
+          "dropoff": {
+            "lat": 18.52,
+            "lng": 73.85,
+            "address": "Fictional nearby test hall"
+          }
+        }
+      ],
+      "skipped": [],
+      "priority_recipient_id": "",
+      "total_portions": 30,
+      "total_km": 0.0,
+      "method": "Earliest deadline first; preferred partner when feasible, then nearest compatible recipient. Separate trips, not fleet routing.",
+      "estimates": "Distance = straight-line \u00d7 1.35. ETA = distance / 18 km/h + 8 min handling. No live traffic."
+    },
+    "error": null,
+    "model_id": "qwen3:4b-instruct",
+    "model_calls": 3,
+    "elapsed_ms": 33662,
+    "events": [
+      {
+        "id": 1,
+        "run_id": "run-6ef244e040a3",
+        "tool": "agent",
+        "title": "Rescue coordinator started",
+        "detail": "Strands Agents tool loop \u00b7 Local LLM \u00b7 Ollama \u00b7 qwen3:4b-instruct",
+        "created_at": "2026-09-12T16:44:18.261585+00:00"
+      },
+      {
+        "id": 2,
+        "run_id": "run-6ef244e040a3",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model requested: inspect_surplus, inspect_recipient_needs",
+        "created_at": "2026-09-12T16:44:30.441600+00:00"
+      },
+      {
+        "id": 3,
+        "run_id": "run-6ef244e040a3",
+        "tool": "inspect_recipient_needs",
+        "title": "Community needs checked",
+        "detail": "2 partners inspected; 60 portions of remaining capacity.",
+        "created_at": "2026-09-12T16:44:30.449783+00:00"
+      },
+      {
+        "id": 4,
+        "run_id": "run-6ef244e040a3",
+        "tool": "inspect_surplus",
+        "title": "Surplus inventory checked",
+        "detail": "1 listings inspected; pickup windows and declared allergens retrieved.",
+        "created_at": "2026-09-12T16:44:30.450070+00:00"
+      },
+      {
+        "id": 5,
+        "run_id": "run-6ef244e040a3",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model requested: create_rescue_plan",
+        "created_at": "2026-09-12T16:44:39.595972+00:00"
+      },
+      {
+        "id": 6,
+        "run_id": "run-6ef244e040a3",
+        "tool": "create_rescue_plan",
+        "title": "Pickup plan prepared",
+        "detail": "30 portions across 1 trips. 0 listings have unmatched portions.",
+        "created_at": "2026-09-12T16:44:39.608443+00:00"
+      },
+      {
+        "id": 7,
+        "run_id": "run-6ef244e040a3",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model returned its written response.",
+        "created_at": "2026-09-12T16:44:51.914401+00:00"
+      },
+      {
+        "id": 8,
+        "run_id": "run-6ef244e040a3",
+        "tool": "review",
+        "title": "Ready for your review",
+        "detail": "No reservations yet. Approval will recheck inventory, recipient capacity, and pickup windows.",
+        "created_at": "2026-09-12T16:44:51.925772+00:00"
+      }
+    ]
+  },
+  "preferred": {
+    "id": "run-fea5f84c6ab2",
+    "status": "ready",
+    "mode": "ollama",
+    "created_at": "2026-09-12T16:44:52.561068+00:00",
+    "completed_at": "2026-09-12T16:45:23.868327+00:00",
+    "instructions": "Prioritize Night Shelter for dinner tonight. Send as many suitable portions there as its capacity allows, then use other partners for the rest.",
+    "radius_km": 5.0,
+    "summary": "The rescue plan successfully matches 20 portions to the Night Shelter, prioritized as per coordinator preference, and 10 portions to the Nearby Community Kitchen due to capacity and compatibility. The Night Shelter's vegetarian-only requirement and exclusion of nuts align with the vegetarian nature of the vegetable lunch boxes. The Nearby Community Kitchen receives the remaining portions, as it is the nearest compatible recipient with available capacity. No needs were unmet due to dietary or distance constraints. The human action needed next is to approve the plan before any pickup is executed.\n",
+    "plan": {
+      "area": {
+        "name": "Pune",
+        "label": "Pune, India",
+        "lat": 18.52,
+        "lng": 73.85,
+        "country": "India",
+        "country_code": "IN",
+        "source": "manual"
+      },
+      "allocations": [
+        {
+          "donation_id": "d-65950ef58b96",
+          "recipient_id": "r-21171e23feb7",
+          "donor": "Verification Restaurant",
+          "food": "Vegetable lunch boxes",
+          "recipient": "Night Shelter",
+          "portions": 20,
+          "distance_km": 1.03,
+          "eta_minutes": 12,
+          "reason": "Coordinator-preferred partner; capacity, diet, deadline and radius checked.",
+          "expires_at": "2026-09-12T18:44:18.241293+00:00",
+          "pickup": {
+            "lat": 18.52,
+            "lng": 73.85,
+            "address": "Fictional test pickup"
+          },
+          "dropoff": {
+            "lat": 18.525,
+            "lng": 73.855,
+            "address": "Fictional shelter test hall"
+          }
+        },
+        {
+          "donation_id": "d-65950ef58b96",
+          "recipient_id": "r-edd3de8bf03f",
+          "donor": "Verification Restaurant",
+          "food": "Vegetable lunch boxes",
+          "recipient": "Nearby Community Kitchen",
+          "portions": 10,
+          "distance_km": 0.0,
+          "eta_minutes": 8,
+          "reason": "Earliest pickup deadline first; nearest compatible recipient with available capacity.",
+          "expires_at": "2026-09-12T18:44:18.241293+00:00",
+          "pickup": {
+            "lat": 18.52,
+            "lng": 73.85,
+            "address": "Fictional test pickup"
+          },
+          "dropoff": {
+            "lat": 18.52,
+            "lng": 73.85,
+            "address": "Fictional nearby test hall"
+          }
+        }
+      ],
+      "skipped": [],
+      "priority_recipient_id": "r-21171e23feb7",
+      "total_portions": 30,
+      "total_km": 1.03,
+      "method": "Earliest deadline first; preferred partner when feasible, then nearest compatible recipient. Separate trips, not fleet routing.",
+      "estimates": "Distance = straight-line \u00d7 1.35. ETA = distance / 18 km/h + 8 min handling. No live traffic."
+    },
+    "error": null,
+    "model_id": "qwen3:4b-instruct",
+    "model_calls": 3,
+    "elapsed_ms": 31303,
+    "events": [
+      {
+        "id": 9,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "agent",
+        "title": "Rescue coordinator started",
+        "detail": "Strands Agents tool loop \u00b7 Local LLM \u00b7 Ollama \u00b7 qwen3:4b-instruct",
+        "created_at": "2026-09-12T16:44:52.566766+00:00"
+      },
+      {
+        "id": 10,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model requested: inspect_surplus, inspect_recipient_needs",
+        "created_at": "2026-09-12T16:44:55.125567+00:00"
+      },
+      {
+        "id": 11,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "inspect_recipient_needs",
+        "title": "Community needs checked",
+        "detail": "2 partners inspected; 60 portions of remaining capacity.",
+        "created_at": "2026-09-12T16:44:55.135123+00:00"
+      },
+      {
+        "id": 12,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "inspect_surplus",
+        "title": "Surplus inventory checked",
+        "detail": "1 listings inspected; pickup windows and declared allergens retrieved.",
+        "created_at": "2026-09-12T16:44:55.135287+00:00"
+      },
+      {
+        "id": 13,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model requested: create_rescue_plan",
+        "created_at": "2026-09-12T16:45:04.589157+00:00"
+      },
+      {
+        "id": 14,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "create_rescue_plan",
+        "title": "Pickup plan prepared",
+        "detail": "30 portions across 2 trips. 0 listings have unmatched portions. Preferred partner ID: r-21171e23feb7.",
+        "created_at": "2026-09-12T16:45:04.601576+00:00"
+      },
+      {
+        "id": 15,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "model",
+        "title": "LLM response received",
+        "detail": "Model returned its written response.",
+        "created_at": "2026-09-12T16:45:23.860041+00:00"
+      },
+      {
+        "id": 16,
+        "run_id": "run-fea5f84c6ab2",
+        "tool": "review",
+        "title": "Ready for your review",
+        "detail": "No reservations yet. Approval will recheck inventory, recipient capacity, and pickup windows.",
+        "created_at": "2026-09-12T16:45:23.874577+00:00"
+      }
+    ]
+  },
+  "completed_portions": 30,
+  "completed_pickups": 2,
+  "assertions": [
+    "Actual Ollama model used through Strands",
+    "Model responses recorded",
+    "Natural-language preference changed the chosen recipient",
+    "Capacity capped at 20; remaining 10 assigned elsewhere",
+    "Stale earlier plan rejected",
+    "Approval and confirmed handoffs persisted"
+  ]
+}
