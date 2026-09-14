@@ -50,3 +50,4 @@ The source archive intentionally excludes `.env`, databases, virtual environment
 Suggested repository name: `second-serve`. Suggested About text: “A Strands-powered surplus-food rescue coordinator. React, FastAPI, SQLite, and Docker.” Suggested topics: `strands-agents`, `amazon-bedrock`, `food-rescue`, `fastapi`, `react`, `hackathon`.
 
 Before final submission: run a clean Docker installation, exercise the local LLM once, confirm the published repository works without private files, and ensure the public video and project description accurately distinguish demo and live behavior.
+
